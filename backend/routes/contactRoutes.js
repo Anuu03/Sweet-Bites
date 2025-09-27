@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Contact = require('../models/Contact');
+const validator = require('validator');
 
 // ===============================
 // Submit contact form (Public)
@@ -9,15 +10,23 @@ router.post('/submit', async (req, res) => {
   try {
     const { name, email, phone, subject, message } = req.body;
 
-    // Validate required fields
-    if (!name || !email || !phone || !subject || !message) {
+    // Enhanced input validation before creating the Mongoose document
+    const validationErrors = {};
+    if (!name || name.trim().length === 0) validationErrors.name = 'Name is required.';
+    if (!email || !validator.isEmail(email)) validationErrors.email = 'A valid email is required.';
+    if (!phone || !validator.isMobilePhone(phone, 'any', { strictMode: false })) validationErrors.phone = 'A valid phone number is required.';
+    if (!subject) validationErrors.subject = 'Subject is required.';
+    if (!message || message.trim().length === 0) validationErrors.message = 'Message is required.';
+
+    if (Object.keys(validationErrors).length > 0) {
       return res.status(400).json({
         success: false,
-        message: 'All fields are required'
+        message: 'Validation failed.',
+        errors: validationErrors
       });
     }
 
-    // Create new contact submission
+    // Create a new contact submission
     const contact = new Contact({
       name: name.trim(),
       email: email.toLowerCase().trim(),
@@ -41,6 +50,20 @@ router.post('/submit', async (req, res) => {
 
   } catch (error) {
     console.error('Contact form submission error:', error);
+
+    // Handle Mongoose validation errors
+    if (error.name === 'ValidationError') {
+      const errors = {};
+      for (let field in error.errors) {
+        errors[field] = error.errors[field].message;
+      }
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed.',
+        errors: errors
+      });
+    }
+
     res.status(500).json({
       success: false,
       message: 'Failed to submit contact form. Please try again.',
@@ -52,7 +75,8 @@ router.post('/submit', async (req, res) => {
 // ===============================
 // Get all contact submissions (Admin only)
 // ===============================
-router.get('/admin/contacts', async (req, res) => {
+// ✅ CORRECTED URL to be more descriptive and consistent
+router.get('/admin/contacts', async (req, res) => { 
   try {
     // Add authentication middleware later
     const { page = 1, limit = 10, status } = req.query;

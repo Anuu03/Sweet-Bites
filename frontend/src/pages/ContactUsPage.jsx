@@ -50,7 +50,7 @@ const LocationCard = ({ location }) => {
         </div>
         <div className="flex items-center gap-3">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-orange-500 flex-shrink-0">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v.75m-4.5 0v-.75m0 0a.75.75 0 01.75-.75h2.25a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-2.25a.75.75 0 01-.75-.75zM12 9h.008v.008H12V9zm.375 0h.008v.008h-.008V9zm-.375 2.25h.008v.008H12v-.008zm.375 0h.008v.008h-.008v-.008zm-.375 2.25h.008v.008H12v-.008zm.375 0h.008v.008h-.008v-.008zM12 15h.008v.008H12V15zm.375 0h.008v.008h-.008V15zm-.375 2.25h.008v.008H12v-.008zm.375 0h.008v.008h-.008v-.008z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v.75m-4.5 0v-.75m0 0a.75.75 0 01.75-.75h2.25a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-2.25a.75.75 0 01-.75-.75zM12 9h.008v.008H12V9zm.375 0h.008v.008h-.008V9zm-.375 2.25h.008v.008H12v-.008zm.375 0h.008v.008h-.008v-.008zM-.375 2.25h.008v.008H12v-.008zm.375 0h.008v.008h-.008v-.008zM12 15h.008v.008H12V15zm.375 0h.008v.008h-.008V15zm-.375 2.25h.008v.008H12v-.008zm.375 0h.008v.008h-.008v-.008z" />
           </svg>
           <span className="text-gray-600 group-hover:text-orange-600 transition-colors duration-300">{location.hours}</span>
         </div>
@@ -87,39 +87,39 @@ const App = () => {
   const locations = [
     {
       id: 1,
-      name: "Virar West Main Store",
+      name: "Virar West Store",
       address: "Shop no. 1, Gaothan Road, Virar West, Maharashtra 401303",
-      phone: "+91 9999 99 9999",
+      phone: "+91 8652578332",
       email: "virarwest@sweetbites.com",
-      hours: "9:00 AM - 10:00 PM",
+      hours: "9:30 AM - 11:00 PM",
       mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.4852718320184!2d72.7917308!3d19.4563672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a9c8b8f7f7f7%3A0x1234567890abcdef!2sVirar%20West%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1642567890123!5m2!1sen!2sin"
     },
     {
       id: 2,
-      name: "Borivali Branch",
-      address: "Shop 15, Shanti Shopping Center, Borivali East, Mumbai 400066",
-      phone: "+91 9888 88 8888",
-      email: "borivali@sweetbites.com",
-      hours: "8:30 AM - 9:30 PM",
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.123456789!2d72.8566!3d19.230123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b151234abcde%3A0x9876543210fedcba!2sBorivali%20East%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1642567890124!5m2!1sen!2sin"
+      name: "Town ship Main Branch",
+      address: "Creamy Cake Co., Creamy Cake Co, opposite Axis Bank, next to Parag medical, Gokul Township, Virar West, Virar, Maharashtra",
+      phone: "+91 8652578332",
+      email: "township@sweetbites.com",
+      hours: "9:30 AM - 11:30 PM",
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.184882192835!2d72.7983146752147!3d19.447594081834993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a27af00d2509d89%3A0xd7872863a1f4fbb3!2sAxis%20Bank%20Branch!5e0!3m2!1sen!2sin!4v1758973700882!5m2!1sen!2sin"
     },
     {
       id: 3,
-      name: "Andheri Outlet",
-      address: "Unit 23, Infinity Mall, Andheri West, Mumbai 400053",
-      phone: "+91 9777 77 7777",
-      email: "andheri@sweetbites.com",
+      name: "Arnala Branch",
+      address: "Arnala virar west, Palghar 401303",
+      phone: "+91 8652578332",
+      email: "Arnala@sweetbites.com",
       hours: "10:00 AM - 11:00 PM",
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.123456789!2d72.834567!3d19.134567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63ace90c2bd%3A0x11ff28dd1245abcd!2sAndheri%20West%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1642567890125!5m2!1sen!2sin"
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.968554388024!2d72.74510641092243!3d19.45692253982761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ab3355ec361f%3A0x2896a7e8b416b644!2sCreamy%20cake%20co.!5e0!3m2!1sen!2sin!4v1758973869354!5m2!1sen!2sin"
     },
     {
       id: 4,
-      name: "Pune Branch",
-      address: "Shop 8, FC Road, Shivaji Nagar, Pune 411005",
-      phone: "+91 9666 66 6666",
-      email: "pune@sweetbites.com",
+      name: "Global City Branch",
+      address: "Global City virar west, Palghar 401303",
+      phone: "+91 8652578332",
+      email: "globalcity@sweetbites.com",
       hours: "9:00 AM - 10:30 PM",
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.123456789!2d73.845678!3d18.523456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sFC%20Road%2C%20Pune!5e0!3m2!1sen!2sin!4v1642567890126!5m2!1sen!2sin"
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.6795813460662!2d72.79497844638186!3d19.46937689278663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7abd199d1c74f%3A0x55a34590dc9e3b12!2sCreamy%20Cake%20Co%20Global%20City!5e0!3m2!1sen!2sin!4v1758973835172!5m2!1sen!2sin"
     }
   ];
 
@@ -136,20 +136,38 @@ const App = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      setToastMessage("Message sent successfully! We'll get back to you within 24 hours.");
-      setToastType("success");
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+      // 🎯 REAL API CALL TO THE BACKEND
+      const response = await fetch('http://localhost:9000/api/contact/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
       });
+      
+      const data = await response.json();
+
+      if (response.ok) {
+        setToastMessage(data.message);
+        setToastType("success");
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        // Handle validation errors or other server-side errors
+        console.error('Submission failed:', data.message);
+        console.error('Errors:', data.errors);
+        setToastMessage(data.message || 'Failed to send message. Please try again.');
+        setToastType("error");
+      }
+
     } catch (error) {
-      setToastMessage("Failed to send message. Please try again.");
+      console.error('Network or server error:', error);
+      setToastMessage("Failed to connect to the server. Please try again later.");
       setToastType("error");
     } finally {
       setIsSubmitting(false);
@@ -430,7 +448,7 @@ const App = () => {
                   <div className="text-sm text-gray-600">Average Rating</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-extrabold text-green-600">1,250+</div>
+                  <div className="text-4xl font-extrabold text-green-600">250+</div>
                   <div className="text-sm text-gray-600">Happy Customers</div>
                 </div>
               </div>

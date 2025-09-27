@@ -24,6 +24,7 @@ import LadoosPage from "./pages/LadoosPage";
 import MithaiPage from "./pages/MithaiPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import ContactMessages from './components/Admin/ContactMessages';
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -67,6 +68,7 @@ const App = () => {
       <Route path="products" element={<ProductManagement/>} />
       <Route path="/admin/products/:id" element={<EditProductPage/>} />
       <Route path="orders" element={<OrderManagement/>}/>
+      <Route path="contacts" element={<ContactMessages />} /> 
     </Route>
     </Routes>
     </BrowserRouter>

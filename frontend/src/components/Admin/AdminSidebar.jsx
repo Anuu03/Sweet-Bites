@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaBoxOpen, FaClipboardList, FaSignOutAlt, FaStore, FaUser } from 'react-icons/fa'
+import { FaBoxOpen, FaClipboardList, FaSignOutAlt, FaStore, FaUser,FaEnvelope } from 'react-icons/fa'
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { NavLink } from 'react-router-dom';
@@ -44,6 +44,12 @@ const AdminSidebar = () => {
                 <FaClipboardList />
                 <span>Orders</span>
             </NavLink>
+            <NavLink to="/admin/contacts" className={({isActive}) => isActive ? 
+                "bg-gray-700 text-white py-3 px-4 rounded flex items-center space-x-2" 
+                : "text-gray-300 hover:bg-gray-700 hover:text-white py-3 px-4 rounded flex items-center space-x-2"}>
+                    <FaEnvelope />
+                    <span>Messages</span>
+                </NavLink>
             <NavLink to="/" className={({isActive}) => isActive ? 
             "bg-gray-700 text-white py-3 px-4 rounded flex items-center space-x-2" 
             : "text-gray-300 hover:bg-gray-700 hover:text-white py-3 px-4 rounded flex items-center space-x-2"}>

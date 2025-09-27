@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Define the Contact Schema
 const contactSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -31,7 +32,7 @@ const contactSchema = new mongoose.Schema({
     required: [true, 'Subject is required'],
     enum: [
       'general',
-      'order', 
+      'order',
       'complaint',
       'feedback',
       'wholesale',
@@ -172,4 +173,5 @@ contactSchema.methods.markAsInProgress = function() {
   return this.save();
 };
 
+// Export the model so it can be used in other files
 module.exports = mongoose.model('Contact', contactSchema);
