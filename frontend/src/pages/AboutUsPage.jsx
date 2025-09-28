@@ -44,9 +44,9 @@ const LocationCard = ({ location }) => {
 
 const AboutUsPage = () => {
   const stats = [
-    { id: 1, number: '25+', label: 'Years of Excellence' },
-    { id: 2, number: '10,000+', label: 'Happy Customers' },
-    { id: 3, number: '4', label: 'Store Locations' },
+    { id: 1, number: '7+', label: 'Years of Excellence' },
+    { id: 2, number: '1000+', label: 'Happy Customers' },
+    { id: 3, number: '9', label: 'Store Locations' },
     { id: 4, number: '150+', label: 'Sweet Varieties' }
   ];
 
@@ -80,47 +80,39 @@ const AboutUsPage = () => {
   const locations = [
     {
       id: 1,
-      name: "Virar West Main Store",
+      name: "Virar West Store",
       address: "Shop no. 1, Gaothan Road, Virar West, Maharashtra 401303",
-      phone: "+91 9999 99 9999",
+      phone: "+91 8652578332",
       email: "virarwest@sweetbites.com",
-      hours: "9:00 AM - 10:00 PM",
-      manager: "Rajesh Kumar",
-      specialties: ["Traditional Sweets", "Custom Orders", "Wedding Packages"],
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.4852718320184!2d72.7917308!3d19.4563672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a9c8b8f7f7f7%3A0x1234567890abcdef!2sVirar%20West%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1642567890123!5m2!1sen!2sin"
+      hours: "9:30 AM - 11:00 PM",
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60191.57830723507!2d72.78444740508967!3d19.456703106945458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a94ce43d3147%3A0x11c8a1452db009fc!2sCreamy%20Cake%20Co.!5e0!3m2!1sen!2sin!4v1758986719023!5m2!1sen!2sin"
     },
     {
       id: 2,
-      name: "Borivali Branch",
-      address: "Shop 15, Shanti Shopping Center, Borivali East, Mumbai 400066",
-      phone: "+91 9888 88 8888",
-      email: "borivali@sweetbites.com",
-      hours: "8:30 AM - 9:30 PM",
-      manager: "Priya Sharma",
-      specialties: ["Bengali Sweets", "Mithai Boxes", "Festival Specials"],
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.123456789!2d72.8566!3d19.230123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b151234abcde%3A0x9876543210fedcba!2sBorivali%20East%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1642567890124!5m2!1sen!2sin"
+      name: "Town ship Main Branch",
+      address: "Creamy Cake Co., Creamy Cake Co, opposite Axis Bank, next to Parag medical, Gokul Township, Virar West, Virar, Maharashtra",
+      phone: "+91 8652578332",
+      email: "township@sweetbites.com",
+      hours: "9:30 AM - 11:30 PM",
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.184882192835!2d72.7983146752147!3d19.447594081834993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a27af00d2509d89%3A0xd7872863a1f4fbb3!2sAxis%20Bank%20Branch!5e0!3m2!1sen!2sin!4v1758973700882!5m2!1sen!2sin"
     },
     {
       id: 3,
-      name: "Andheri Outlet",
-      address: "Unit 23, Infinity Mall, Andheri West, Mumbai 400053",
-      phone: "+91 9777 77 7777",
-      email: "andheri@sweetbites.com",
+      name: "Arnala Branch",
+      address: "Arnala virar west, Palghar 401303",
+      phone: "+91 8652578332",
+      email: "Arnala@sweetbites.com",
       hours: "10:00 AM - 11:00 PM",
-      manager: "Suresh Patel",
-      specialties: ["Premium Collection", "Dry Fruit Sweets", "Gift Packaging"],
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.123456789!2d72.834567!3d19.134567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63ace90c2bd%3A0x11ff28dd1245abcd!2sAndheri%20West%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1642567890125!5m2!1sen!2sin"
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.968554388024!2d72.74510641092243!3d19.45692253982761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ab3355ec361f%3A0x2896a7e8b416b644!2sCreamy%20cake%20co.!5e0!3m2!1sen!2sin!4v1758973869354!5m2!1sen!2sin"
     },
     {
       id: 4,
-      name: "Pune Branch",
-      address: "Shop 8, FC Road, Shivaji Nagar, Pune 411005",
-      phone: "+91 9666 66 6666",
-      email: "pune@sweetbites.com",
+      name: "Global City Branch",
+      address: "Global City virar west, Palghar 401303",
+      phone: "+91 8652578332",
+      email: "globalcity@sweetbites.com",
       hours: "9:00 AM - 10:30 PM",
-      manager: "Meera Joshi",
-      specialties: ["South Indian Sweets", "Ladoos", "Catering Services"],
-      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.123456789!2d73.845678!3d18.523456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sFC%20Road%2C%20Pune!5e0!3m2!1sen!2sin!4v1642567890126!5m2!1sen!2sin"
+      mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.6795813460662!2d72.79497844638186!3d19.46937689278663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7abd199d1c74f%3A0x55a34590dc9e3b12!2sCreamy%20Cake%20Co%20Global%20City!5e0!3m2!1sen!2sin!4v1758973835172!5m2!1sen!2sin"
     }
   ];
 
@@ -176,12 +168,12 @@ const AboutUsPage = () => {
   ];
 
   const milestones = [
-    { year: '1999', event: 'Founded our first store in Virar West with traditional family recipes' },
-    { year: '2005', event: 'Expanded to Borivali, bringing authentic sweets to more families' },
-    { year: '2012', event: 'Opened our premium Andheri outlet in Infinity Mall' },
-    { year: '2018', event: 'Launched our Pune branch to serve customers across Maharashtra' },
-    { year: '2020', event: 'Introduced online ordering and home delivery services' },
-    { year: '2024', event: 'Celebrating 25 years of sweet traditions and 10,000+ happy customers' }
+    { year: '2017', event: 'Founded our first store in Virar West with traditional family recipes' },
+    { year: '2019', event: 'Expanded to Virar East, bringing authentic sweets to more families' },
+    { year: '2021', event: 'Opened our premium Gokul Township outlet' },
+    { year: '2022', event: 'Launched our Global City branch' },
+    { year: '2023', event: 'Opened more outlets in Virar, now with a total of 9 outlets' },
+    { year: '2025', event: 'Celebrating 8+ years of sweet traditions and a growing customer base' }
   ];
 
   const sectionRefs = useRef([]);
@@ -237,16 +229,16 @@ const AboutUsPage = () => {
           100% { transform: scale(1); opacity: 1; }
         }
       `}</style>
-      
+
       {/* Hero Section */}
-      <div 
+      <div
         ref={el => sectionRefs.current[0] = el}
         className="fade-in-section bg-gradient-to-r from-amber-600 via-orange-600 to-red-500 text-white py-20"
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">Sweet Bites</h1>
           <p className="text-2xl text-amber-100 mb-8 max-w-3xl mx-auto">
-            Crafting sweet memories for over 25 years with authentic recipes, 
+            Crafting sweet memories for over 8+ years with authentic recipes,
             premium ingredients, and a passion for perfection.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
@@ -261,7 +253,7 @@ const AboutUsPage = () => {
       </div>
 
       {/* Our Story Section */}
-      <div 
+      <div
         ref={el => sectionRefs.current[1] = el}
         className="fade-in-section py-16 bg-white"
       >
@@ -270,7 +262,7 @@ const AboutUsPage = () => {
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Sweet Story</h2>
               <p className="text-gray-600 text-lg">
-                From humble beginnings to becoming Maharashtra's trusted sweet destination
+                From humble beginnings to becoming Virar's trusted sweet destination
               </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -278,30 +270,30 @@ const AboutUsPage = () => {
                 <h3 className="text-2xl font-bold text-gray-800 mb-6">A Legacy of Excellence</h3>
                 <div className="space-y-4 text-gray-600">
                   <p>
-                    Sweet Bites began in 1999 with a simple dream - to bring the authentic taste of 
-                    traditional Indian sweets to every household. What started as a small family business 
-                    in Virar West has grown into a trusted name across Maharashtra.
+                    Sweet Bites began in **2017** with a simple dream - to bring the authentic taste of
+                    traditional Indian sweets to every household. What started as a small family business
+                    in Virar West has grown into a trusted name across the region.
                   </p>
                   <p>
-                    Our founder, Shri Ramesh Kumar, learned the art of sweet-making from his grandfather, 
-                    who was a renowned halwai in Rajasthan. These time-tested recipes, combined with 
+                    Our founder, **Javed Ali Sheikh**, learned the art of sweet-making from his grandfather,
+                    who was a renowned halwai in Rajasthan. These time-tested recipes, combined with
                     modern hygiene standards and quality control, form the backbone of our business.
                   </p>
                   <p>
-                    Today, we serve thousands of families across Mumbai and Pune, carrying forward the 
-                    tradition of celebrating life's sweet moments with authentic, delicious sweets made 
+                    Today, we serve thousands of families across Virar and surrounding areas, carrying forward the
+                    tradition of celebrating life's sweet moments with authentic, delicious sweets made
                     from the finest ingredients.
                   </p>
                 </div>
               </div>
               <div className="relative">
-                <img 
-                  src="https://placehold.co/600x400/FFDDC1/FF5733?text=Our+Heritage" 
-                  alt="Sweet Bites Heritage" 
+                <img
+                  src="https://placehold.co/600x400/FFDDC1/FF5733?text=Our+Heritage"
+                  alt="Sweet Bites Heritage"
                   className="rounded-lg shadow-lg w-full h-96 object-cover"
                 />
                 <div className="absolute -bottom-6 -right-6 bg-amber-600 text-white p-6 rounded-lg shadow-xl">
-                  <div className="text-3xl font-bold">25+</div>
+                  <div className="text-3xl font-bold">8+</div>
                   <div className="text-amber-100 text-sm">Years of Trust</div>
                 </div>
               </div>
@@ -311,7 +303,7 @@ const AboutUsPage = () => {
       </div>
 
       {/* Our Values Section */}
-      <div 
+      <div
         ref={el => sectionRefs.current[2] = el}
         className="fade-in-section py-16 bg-amber-50"
       >
@@ -337,7 +329,7 @@ const AboutUsPage = () => {
       </div>
 
       {/* Timeline Section */}
-      <div 
+      <div
         ref={el => sectionRefs.current[3] = el}
         className="fade-in-section py-16 bg-white"
       >
@@ -345,7 +337,7 @@ const AboutUsPage = () => {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Journey</h2>
             <p className="text-gray-600 text-lg">
-              Key milestones in our 25-year journey of spreading sweetness
+              Key milestones in our journey of spreading sweetness
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -370,7 +362,7 @@ const AboutUsPage = () => {
       </div>
 
       {/* Locations Section */}
-      <div 
+      <div
         ref={el => sectionRefs.current[4] = el}
         className="fade-in-section py-16 bg-gray-50"
       >
@@ -378,8 +370,8 @@ const AboutUsPage = () => {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Visit Our Stores</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Experience the Sweet Bites difference at any of our four convenient locations 
-              across Mumbai and Pune.
+              Experience the Sweet Bites difference at any of our nine convenient locations
+              in Virar.
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -391,7 +383,7 @@ const AboutUsPage = () => {
       </div>
 
       {/* Customer Testimonials */}
-      <div 
+      <div
         ref={el => sectionRefs.current[5] = el}
         className="fade-in-section py-16 bg-white"
       >
@@ -436,14 +428,14 @@ const AboutUsPage = () => {
       </div>
 
       {/* Call to Action */}
-      <div 
+      <div
         ref={el => sectionRefs.current[6] = el}
         className="fade-in-section py-16 bg-gradient-to-r from-amber-600 to-orange-600 text-white"
       >
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Experience the Sweet Bites Difference</h2>
           <p className="text-xl text-amber-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust us for their sweet moments. 
+            Join thousands of satisfied customers who trust us for their sweet moments.
             Visit any of our stores or order online today!
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">

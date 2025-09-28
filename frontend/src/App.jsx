@@ -17,6 +17,7 @@ import AdminLayout from "./components/Admin/AdminLayout";
 import AdminHomePage from "./pages/AdminHomePage";
 import UserManagement from "./components/Admin/UserManagement";
 import ProductManagement from "./components/Admin/ProductManagement";
+import AddProductForm from "./components/Admin/AddProductForm";
 import EditProductPage from "./components/Admin/EditProductPage";
 import OrderManagement from "./components/Admin/OrderManagement";
 // import AllSweetsPage from "./pages/AllSweetsPage";
@@ -66,6 +67,7 @@ const App = () => {
       <Route index element={<AdminHomePage />} />
       <Route path="users" element={<UserManagement/>} />
       <Route path="products" element={<ProductManagement/>} />
+      <Route path="/admin/products/add" element={<AddProductForm />} />
       <Route path="/admin/products/:id" element={<EditProductPage/>} />
       <Route path="orders" element={<OrderManagement/>}/>
       <Route path="contacts" element={<ContactMessages />} /> 

@@ -88,6 +88,20 @@ const adminProductSlice = createSlice({
         state.error = action.payload?.message || "Failed to fetch products";
       })
 
+      // Create new product
+      .addCase(createAdminProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createAdminProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products.push(action.payload); // Add the new product to the state
+      })
+      .addCase(createAdminProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Failed to create product";
+      })
+
       // Update product
       .addCase(updateAdminProduct.pending, (state) => {
         state.loading = true;

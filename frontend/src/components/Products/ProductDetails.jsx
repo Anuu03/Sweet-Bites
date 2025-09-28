@@ -1,3 +1,4 @@
+// Filename: ProductDetails.jsx
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import ProductGrid from "./ProductGrid";
@@ -28,12 +29,14 @@ const ProductDetails = ({ productId }) => {
 
   useEffect(() => {
     if (productFetchId) {
+      // ✅ FIX: Pass the ID string directly to fetchProductDetails
       dispatch(fetchProductDetails(productFetchId));
+      // ✅ `fetchSimilarProducts` already correctly handles the object payload
       dispatch(fetchSimilarProducts({ id: productFetchId }));
     }
   }, [dispatch, productFetchId]);
 
-  // Use a dynamic price calculation function that works with any weight string.
+  // Calculate price dynamically based on weight
   const calculatePrice = (basePricePerKg, weight) => {
     const weightNumber = parseFloat(weight);
     if (isNaN(weightNumber)) {
@@ -54,16 +57,13 @@ const ProductDetails = ({ productId }) => {
   useEffect(() => {
     if (selectedProduct) {
       const basePrice = selectedProduct.basePrice || selectedProduct.price;
-      // Set the default selected weight to the first option if it exists
       if (selectedProduct.weights && selectedProduct.weights.length > 0) {
         const initialWeight = selectedProduct.weights[0];
         setSelectedWeight(initialWeight);
         const newPrice = calculatePrice(basePrice, initialWeight);
         setCurrentPrice(newPrice);
       } else {
-        // If there are no weights, use the product's base price
         setSelectedWeight("");
-        setCurrentPrice(basePrice);
       }
     }
   }, [selectedProduct]);
@@ -76,11 +76,17 @@ const ProductDetails = ({ productId }) => {
     }
   }, [selectedWeight, selectedProduct]);
 
+  // ✅ Limit quantity between 1 and 4
   const handleQuantityChange = (action) => {
-    if (action === "plus") setQuantity((prev) => prev + 1);
-    if (action === "minus" && quantity > 1) setQuantity((prev) => prev - 1);
+    if (action === "plus" && quantity < 4) {
+      setQuantity((prev) => prev + 1);
+    }
+    if (action === "minus" && quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
   };
 
+  // ✅ Ensure cannot add more than 4 to cart
   const handleAddToCart = () => {
     if (!selectedWeight) {
       toast.error("Please select a weight option.", { duration: 1000 });
@@ -88,6 +94,10 @@ const ProductDetails = ({ productId }) => {
     }
     if (!selectedProduct) {
       toast.error("Product not found.", { duration: 1000 });
+      return;
+    }
+    if (quantity > 4) {
+      toast.error("You can only add up to 4 units of this product.", { duration: 1000 });
       return;
     }
 
@@ -133,7 +143,7 @@ const ProductDetails = ({ productId }) => {
           <div className="hidden md:flex flex-col space-y-4 mr-6">
             {product.images?.map((image, index) => (
               <motion.img
-                key={index}
+                key={image.url || index}
                 src={image.url}
                 alt={image.altText || `Thumbnail ${index}`}
                 whileHover={{ scale: 1.1, rotate: 2 }}
@@ -231,11 +241,17 @@ const ProductDetails = ({ productId }) => {
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={() => handleQuantityChange("plus")}
-                  className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
+                  disabled={quantity === 4}
+                  className="px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300 transition disabled:opacity-50"
                 >
                   +
                 </motion.button>
               </div>
+              {quantity === 4 && (
+                <p className="text-sm text-red-500 mt-1">
+                  Max 4 units allowed per product
+                </p>
+              )}
             </div>
 
             {/* Add to Cart */}

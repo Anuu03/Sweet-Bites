@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { fetchProductDetails, updateProduct } from "../../redux/slices/productsSlice";
+import { useNavigate } from "react-router-dom";
+import { createAdminProduct } from "../../redux/slices/adminProductSlice";
 import axios from "axios";
 
-const EditProductPage = () => {
+const AddProductForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { selectedProduct, loading, error } = useSelector((state) => state.products);
 
+  // Use state to manage form data, initializing with empty or default values
   const [productData, setProductData] = useState({
     name: "",
     description: "",
@@ -18,32 +17,21 @@ const EditProductPage = () => {
     sku: "",
     category: "",
     collections: "",
-    weights: [], // 💡 Changed from 'weight' to 'weights' to match the backend
+    weights: [], // Changed from 'weight' to 'weights' to match backend
     flavours: [],
     images: [],
   });
 
   const [uploading, setUploading] = useState(false);
+  const { loading, error } = useSelector((state) => state.adminProducts);
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchProductDetails(id));
-    }
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (selectedProduct) {
-      setProductData(selectedProduct);
-    }
-  }, [selectedProduct]);
-
-  // ✅ handle normal text/number inputs
+  // Handle normal text/number inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProductData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // ✅ handle image upload + preview
+  // Handle image upload and preview
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
@@ -71,7 +59,7 @@ const EditProductPage = () => {
     }
   };
 
-  // ✅ remove image
+  // Remove image
   const handleRemoveImage = (index) => {
     setProductData((prev) => ({
       ...prev,
@@ -79,19 +67,23 @@ const EditProductPage = () => {
     }));
   };
 
-  // ✅ submit handler
+  // Submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateProduct({ id, productData }));
-    navigate("/admin/products");
+    dispatch(createAdminProduct(productData))
+      .unwrap()
+      .then(() => {
+        navigate("/admin/products");
+      })
+      .catch((err) => {
+        console.error("Failed to add product:", err);
+      });
   };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error...</p>;
 
   return (
     <div className="max-w-5xl mx-auto p-4 sm:p-6 shadow-md rounded-md bg-white">
-      <h2 className="text-2xl sm:text-3xl font-bold mb-6">Edit Product</h2>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6">Add New Product</h2>
+      {error && <p className="text-red-500 text-center mb-4">Error: {error}</p>}
       <form onSubmit={handleSubmit}>
         {/* Product Name */}
         <div className="mb-6">
@@ -162,16 +154,17 @@ const EditProductPage = () => {
 
         {/* Weight */}
         <div className="mb-6">
-          <label className="block font-semibold mb-2">Weight (comma-separated)</label>
+          <label className="block font-semibold mb-2">
+            Weight (comma-separated)
+          </label>
           <input
             type="text"
-            name="weights" // 💡 Changed name from 'weight' to 'weights'
-            // 💡 Use optional chaining and nullish coalescing to avoid errors
-            value={productData.weights?.join(", ") ?? ""}
+            name="weights" // Changed from 'weight' to 'weights'
+            value={productData.weights.join(", ")}
             onChange={(e) =>
               setProductData({
                 ...productData,
-                weights: e.target.value.split(",").map((w) => w.trim()),
+                weights: e.target.value.split(",").map((w) => w.trim()), // Changed from 'weight' to 'weights'
               })
             }
             className="w-full border border-gray-300 rounded-md p-2"
@@ -180,12 +173,13 @@ const EditProductPage = () => {
 
         {/* Flavours */}
         <div className="mb-6">
-          <label className="block font-semibold mb-2">Flavours (comma-separated)</label>
+          <label className="block font-semibold mb-2">
+            Flavours (comma-separated)
+          </label>
           <input
             type="text"
             name="flavours"
-            // 💡 Use optional chaining and nullish coalescing
-            value={productData.flavours?.join(", ") ?? ""}
+            value={productData.flavours.join(", ")}
             onChange={(e) =>
               setProductData({
                 ...productData,
@@ -213,6 +207,7 @@ const EditProductPage = () => {
         <div className="mb-6">
           <label className="block font-semibold mb-2">Upload Images</label>
           <input type="file" onChange={handleImageUpload} />
+          {uploading && <p>Uploading...</p>}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
             {productData.images.map((image, index) => (
               <div key={index} className="relative group">
@@ -236,13 +231,13 @@ const EditProductPage = () => {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition-colors"
+          className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors"
         >
-          Update Product
+          Add Product
         </button>
       </form>
     </div>
   );
 };
 
-export default EditProductPage;
+export default AddProductForm;

@@ -17,7 +17,7 @@ const productSchema = mongoose.Schema(
     types: { type: String },
     images: [
       {
-        url: { type: String, required: false }, 
+        url: { type: String, required: false },
         altText: { type: String },
       },
     ],
@@ -33,7 +33,7 @@ const productSchema = mongoose.Schema(
     sold: { type: Number, default: 0 }, // ✅ NEW FIELD for best-seller logic
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
-  { timestamps: true }
+  { timestamps: true }  
 );
 
 module.exports = mongoose.model("Product", productSchema);
