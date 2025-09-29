@@ -17,6 +17,7 @@ const initialState = {
   guestId: initialGuestId,
   loading: false,
   error: null,
+  success: false, 
 };
 
 // Async Thunk for user login
@@ -59,14 +60,58 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+// Async Thunk for forgot password
+export const forgotPasswordUser = createAsyncThunk(
+  "auth/forgotPasswordUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/forgot-password`,
+        userData
+      );
+      return response.data;
+    } catch (error) {
+      // IMPORTANT: Return a generic message here to prevent email enumeration.
+      return rejectWithValue({ message: "If an account with that email exists, a password reset link has been sent." });
+    }
+  }
+);
+
+// NEW Async Thunk for resetting password
+export const resetPasswordUser = createAsyncThunk(
+  "auth/resetPasswordUser",
+  async (resetData, { rejectWithValue }) => {
+    // resetData contains { token, newPassword }
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/reset-password`,
+        resetData
+      );
+      // Backend should return a simple success message
+      return response.data;
+    } catch (error) {
+      // The backend should return specific error messages like "token expired"
+      return rejectWithValue(error.response?.data || { message: "Failed to reset password." });
+    }
+  }
+);
+
+
 // Slice
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Add a utility reducer to clear messages/status after a reset attempt
+    clearAuthStatus: (state) => {
+        state.error = null;
+        state.success = false;
+    },
     logout: (state) => {
       state.user = null;
       state.guestId = `guest_${new Date().getTime()}`;
+      state.success = false; // reset success state on logout
+      state.error = null; // clear error state on logout
       localStorage.removeItem("userInfo");
       localStorage.removeItem("userToken");
       localStorage.setItem("guestId", state.guestId);
@@ -104,9 +149,43 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Registration failed";
+      })
+
+      // Forgot Password
+      .addCase(forgotPasswordUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(forgotPasswordUser.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+        state.success = true;
+      })
+      .addCase(forgotPasswordUser.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload?.message;
+          state.success = false;
+      })
+
+      // Reset Password
+      .addCase(resetPasswordUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(resetPasswordUser.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+        state.success = true; // This success is now used to trigger the redirect in ResetPassword.jsx
+      })
+      .addCase(resetPasswordUser.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload?.message || "Reset failed. Please check the token.";
+          state.success = false;
       });
   },
 });
 
-export const { logout, generateNewGuestId } = authSlice.actions;
+export const { logout, generateNewGuestId, clearAuthStatus } = authSlice.actions;
 export default authSlice.reducer;

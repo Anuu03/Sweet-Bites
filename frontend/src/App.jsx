@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import React from 'react';
 import { Toaster } from "sonner";
 import Login from "./pages/Login";
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import CollectionPage from "./pages/CollectionPage";
@@ -41,6 +43,8 @@ const App = () => {
       <Route index element={<Home />} />
       <Route path="profile" element={<Profile />}/>
       <Route path="Login" element={<Login />}/>
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="register" element={<Register />}/>
       <Route path="collections/all" element={<CollectionPage />} />
       <Route path="collections/all" element={<CollectionPage />} />
