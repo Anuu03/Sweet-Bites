@@ -6,19 +6,25 @@ import axios from "axios";
 export const createCheckout = createAsyncThunk(
   "checkout/createCheckout",
   async (checkoutData, { rejectWithValue }) => {
+    const token = localStorage.getItem("userToken");
+
+    if (!token) {
+      return rejectWithValue("No authentication token found. Please login again.");
+    }
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
         checkoutData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -27,19 +33,25 @@ export const createCheckout = createAsyncThunk(
 export const payCheckout = createAsyncThunk(
   "checkout/payCheckout",
   async ({ checkoutId, paymentStatus, paymentDetails }, { rejectWithValue }) => {
+    const token = localStorage.getItem("userToken");
+
+    if (!token) {
+      return rejectWithValue("No authentication token found. Please login again.");
+    }
+
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/pay`,
         { paymentStatus, paymentDetails },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -48,19 +60,25 @@ export const payCheckout = createAsyncThunk(
 export const finalizeCheckout = createAsyncThunk(
   "checkout/finalizeCheckout",
   async (checkoutId, { rejectWithValue }) => {
+    const token = localStorage.getItem("userToken");
+
+    if (!token) {
+      return rejectWithValue("No authentication token found. Please login again.");
+    }
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/finalize`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -86,7 +104,7 @@ const checkoutSlice = createSlice({
       })
       .addCase(createCheckout.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload;
+        state.error = action.payload;
       })
       // Reducers for payCheckout thunk
       .addCase(payCheckout.pending, (state) => {
@@ -99,7 +117,7 @@ const checkoutSlice = createSlice({
       })
       .addCase(payCheckout.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload;
+        state.error = action.payload;
       })
       // Reducers for finalizeCheckout thunk
       .addCase(finalizeCheckout.pending, (state) => {
@@ -112,7 +130,7 @@ const checkoutSlice = createSlice({
       })
       .addCase(finalizeCheckout.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.payload;
+        state.error = action.payload;
       });
   },
 });

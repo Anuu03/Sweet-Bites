@@ -23,7 +23,7 @@ const checkoutItemSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    weights: { // ✅ ADDED: A weight field to match the frontend component's data
+    weights: { 
         type: String,
         required: true,
     },
@@ -41,9 +41,9 @@ const checkoutSchema = new mongoose.Schema({
         city: { type: String, required: true },
         pinCode: { type: String, required: true },
         country: { type: String, required: true },
-        firstName: { type: String, required: true }, // ✅ ADDED: Missing from original schema
-        lastName: { type: String, required: true }, // ✅ ADDED: Missing from original schema
-        phone: { type: String, required: true }, // ✅ ADDED: Missing from original schema
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        phone: { type: String, required: true },
     },
     paymentMethod: {
         type: String,
@@ -55,7 +55,7 @@ const checkoutSchema = new mongoose.Schema({
     },
     isPaid: {
         type: Boolean,
-        default: false, // ✅ FIXED: Changed 'defaultL' to 'default'
+        default: false,
     },
     paidAt: {
         type: Date,

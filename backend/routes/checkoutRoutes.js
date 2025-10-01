@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Cart = require("../models/Cart");
 const Checkout = require("../models/Checkout");
-const Product = require('../models/Product');
-const Order = require("../models/Order"); // ✅ FIX: Added this import
+const Order = require("../models/Order"); 
 const { protect } = require("../middleware/authMiddleware");
 
 // @route POST /api/checkout
@@ -24,12 +23,10 @@ router.post("/", protect, async (req, res) => {
             shippingAddress,
             paymentMethod,
             totalPrice,
-            paymentStatus: "Pending",
+            paymentStatus: "pending", // ✅ FIX: Initial status is pending
             isPaid: false,
         });
-        
-        // ✅ FIX: Removed the cart deletion from here. It should happen in the finalize route.
-        
+
         console.log(`Checkout created for user: ${req.user._id}`);
         res.status(201).json(newCheckout);
     } catch (error) {
@@ -39,7 +36,7 @@ router.post("/", protect, async (req, res) => {
 });
 
 // @route PUT /api/checkout/:id/pay
-// @desc Update checkout to mark as paid after successful Payment
+// @desc Update checkout to mark as paid or pending
 // @access private
 router.put("/:id/pay", protect, async (req, res) => {
     const { paymentStatus, paymentDetails } = req.body;
@@ -51,11 +48,17 @@ router.put("/:id/pay", protect, async (req, res) => {
             return res.status(404).json({ message: "Checkout not found" });
         }
 
-        if (paymentStatus === "paid") {
-            checkout.isPaid = true;
+        if (paymentStatus === "paid" || paymentStatus === "pending") {
             checkout.paymentStatus = paymentStatus;
+            checkout.isPaid = (paymentStatus === "paid");
             checkout.paymentDetails = paymentDetails;
-            checkout.paidAt = Date.now();
+            
+            if(paymentStatus === "paid") {
+                checkout.paidAt = Date.now();
+            } else {
+                checkout.paidAt = undefined;
+            }
+
             await checkout.save();
 
             res.status(200).json(checkout);
@@ -78,8 +81,8 @@ router.post("/:id/finalize", protect, async (req, res) => {
         if (!checkout) {
             return res.status(404).json({ message: "Checkout not found" });
         }
-
-        if (checkout.isPaid && !checkout.isFinalized) {
+        
+        if ((checkout.isPaid || (checkout.paymentMethod === 'cod' && checkout.paymentStatus === 'pending')) && !checkout.isFinalized) {
             // Create final order based on checkout details
             const finalOrder = await Order.create({
                 user: checkout.user,
@@ -87,10 +90,10 @@ router.post("/:id/finalize", protect, async (req, res) => {
                 shippingAddress: checkout.shippingAddress,
                 paymentMethod: checkout.paymentMethod,
                 totalPrice: checkout.totalPrice,
-                isPaid: true,
+                isPaid: checkout.isPaid,
                 paidAt: checkout.paidAt,
                 isDelivered: false,
-                paymentStatus: "paid",
+                paymentStatus: checkout.paymentStatus,
                 paymentDetails: checkout.paymentDetails,
             });
 
@@ -99,14 +102,13 @@ router.post("/:id/finalize", protect, async (req, res) => {
             checkout.finalizedAt = Date.now();
             await checkout.save();
 
-            // ✅ FIX: Clear the user's cart here, after the order is successfully created
             await Cart.findOneAndDelete({ user: checkout.user });
 
             res.status(201).json(finalOrder);
         } else if (checkout.isFinalized) {
             res.status(400).json({ message: "Checkout already finalized" });
         } else {
-            res.status(400).json({ message: "Checkout is not paid" });
+            res.status(400).json({ message: "Checkout is not paid or COD not handled" });
         }
     } catch (error) {
         console.error(error);

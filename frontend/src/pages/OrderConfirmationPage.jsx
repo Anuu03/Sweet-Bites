@@ -1,35 +1,60 @@
-// Filename: OrderConfirmationPage.jsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart } from "../redux/slices/cartSlice"; 
+import { clearCart } from "../redux/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { fetchOrderDetails } from "../redux/slices/orderSlice"; // Import the fetch order thunk
 
 const OrderConfirmationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // ✅ Get checkout/order data from Redux
   const { checkout } = useSelector((state) => state.checkout);
+  const { orderDetails, loading, error } = useSelector((state) => state.orders);
 
-  // ✅ Clear cart after successful checkout
+  const [finalOrderId, setFinalOrderId] = useState(null);
+
   useEffect(() => {
+    // If a checkout ID exists in the state, save it and clear the cart.
     if (checkout && checkout._id) {
+      localStorage.setItem("finalOrderId", checkout._id);
       dispatch(clearCart());
-      localStorage.removeItem("cart");
+      // The checkout state is transient and can be cleared after saving the ID
+      // You may need to create a `clearCheckout` action for this.
+    }
+
+    // Now, fetch the order details using the ID from localStorage
+    const savedOrderId = localStorage.getItem("finalOrderId");
+    if (savedOrderId) {
+      setFinalOrderId(savedOrderId);
+      dispatch(fetchOrderDetails(savedOrderId));
     } else {
+      // If no order ID is found, navigate away.
       navigate("/my-orders");
     }
   }, [dispatch, checkout, navigate]);
 
-  // ✅ Delivery estimate helper
   const calculateEstimatedDelivery = (createdAt) => {
     const orderDate = new Date(createdAt);
     orderDate.setDate(orderDate.getDate() + 2);
     return orderDate.toLocaleDateString();
   };
 
-  // ✅ Handle case where checkout/order is missing
-  if (!checkout) {
+  if (loading) {
+    return <p className="text-center py-8">Loading order details...</p>;
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-8 text-red-500">
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
+
+  // Use orderDetails from the state, not the local checkout variable.
+  const confirmedOrder = orderDetails;
+
+  if (!confirmedOrder) {
     return (
       <div className="text-center py-8">
         <h2 className="text-2xl font-semibold mb-4">No Order Found</h2>
@@ -52,22 +77,22 @@ const OrderConfirmationPage = () => {
       <div className="p-6 rounded-lg border">
         <div className="flex justify-between mb-20">
           <div>
-            <h2 className="text-xl font-semibold">Order ID: {checkout._id}</h2>
+            <h2 className="text-xl font-semibold">Order ID: {confirmedOrder._id}</h2>
             <p className="text-gray-500">
-              Order date: {new Date(checkout.createdAt).toLocaleDateString()}
+              Order date: {new Date(confirmedOrder.createdAt).toLocaleDateString()}
             </p>
           </div>
           <div>
             <p className="text-emerald-700 text-sm">
               Estimated Delivery:{" "}
-              {calculateEstimatedDelivery(checkout.createdAt)}
+              {calculateEstimatedDelivery(confirmedOrder.createdAt)}
             </p>
           </div>
         </div>
 
         {/* Ordered Items */}
         <div className="mb-20">
-          {checkout.checkoutItems?.map((item, index) => (
+          {confirmedOrder.orderItems?.map((item, index) => (
             <div key={index} className="flex items-center mb-4">
               <img
                 src={item.image}
@@ -92,15 +117,15 @@ const OrderConfirmationPage = () => {
         <div className="grid grid-cols-2 gap-8">
           <div>
             <h4 className="text-lg font-semibold mb-2">Payment</h4>
-            <p className="text-gray-600">{checkout.paymentMethod}</p>
-            <p className="text-gray-600">Status: {checkout.paymentStatus}</p>
+            <p className="text-gray-600">{confirmedOrder.paymentMethod}</p>
+            <p className="text-gray-600">Status: {confirmedOrder.paymentStatus}</p>
           </div>
 
           <div>
             <h4 className="text-lg font-semibold mb-2">Delivery</h4>
-            <p className="text-gray-600">{checkout.shippingAddress?.address}</p>
+            <p className="text-gray-600">{confirmedOrder.shippingAddress?.address}</p>
             <p className="text-gray-600">
-              {checkout.shippingAddress?.city}, {checkout.shippingAddress?.country}
+              {confirmedOrder.shippingAddress?.city}, {confirmedOrder.shippingAddress?.country}
             </p>
           </div>
         </div>
