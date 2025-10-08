@@ -83,6 +83,7 @@ const App = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState('success');
+  const [phoneError, setPhoneError] = useState('');
 
   const locations = [
     {
@@ -125,14 +126,38 @@ const App = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+
+    if (name === 'phone') {
+      const sanitizedValue = value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+      if (sanitizedValue.length <= 10) {
+        setFormData(prev => ({
+          ...prev,
+          [name]: sanitizedValue
+        }));
+        setPhoneError('');
+      } else {
+        setPhoneError('Phone number cannot exceed 10 digits.');
+      }
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Client-side validation for phone number
+    const indianPhoneRegex = /^[6-9]\d{9}$/;
+    if (!indianPhoneRegex.test(formData.phone)) {
+      setPhoneError('Please enter a valid 10-digit Indian phone number.');
+      setToastMessage('Please enter a valid 10-digit Indian phone number.');
+      setToastType('error');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -306,9 +331,11 @@ const App = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
+                    maxLength={10} // HTML5 max length attribute
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow duration-300 shadow-sm"
-                    placeholder="+91 9999 99 9999"
+                    placeholder="+91 99999 99999"
                   />
+                  {phoneError && <p className="mt-2 text-sm text-red-500">{phoneError}</p>}
                 </div>
               </div>
 
@@ -405,8 +432,8 @@ const App = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-800">Call Us</p>
-                    <p className="text-gray-600">+91 9999 99 9999</p>
-                    <p className="text-sm text-gray-500">Mon-Sun: 9 AM - 10 PM</p>
+                    <p className="text-gray-600">+91 86525 78332</p>
+                    <p className="text-sm text-gray-500">Mon-Sun: 10 AM - 11:30 PM</p>
                   </div>
                 </div>
 
@@ -419,7 +446,7 @@ const App = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-800">Email Us</p>
-                    <p className="text-gray-600">info@sweetbites.com</p>
+                    <p className="text-gray-600">sweetbites@gmail.com</p>
                     <p className="text-sm text-gray-500">24/7 Response</p>
                   </div>
                 </div>
@@ -432,14 +459,14 @@ const App = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-800">Visit Us</p>
-                    <p className="text-gray-600">4 Locations Across Mumbai & Pune</p>
+                    <p className="text-gray-600">4 Locations Across Virar East & West</p>
                     <p className="text-sm text-gray-500">See locations below</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Customer Reviews Summary */}
+            {/* Customer Reviews Summary
             <div className="bg-white rounded-xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-6">What Our Customers Say</h2>
               <div className="grid grid-cols-2 gap-4 mb-6">
@@ -457,7 +484,7 @@ const App = () => {
                   View All Reviews →
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

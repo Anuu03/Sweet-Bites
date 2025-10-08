@@ -88,7 +88,7 @@ const Footer = () => {
                             <h3 className="text-lg font-semibold text-gray-800 mb-2">Contact Us</h3>
                             <p className="text-gray-500 flex items-center text-sm hover:text-amber-600 transition-colors">
                                 <FiPhoneCall className="mr-2 text-base text-amber-500" />
-                                +91 9999 99 9999
+                                +91 86525 78332
                             </p>
 
                             <p className="text-gray-500 flex items-center hover:text-amber-600 transition-colors text-sm">

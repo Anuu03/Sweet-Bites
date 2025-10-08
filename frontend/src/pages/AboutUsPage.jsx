@@ -391,7 +391,7 @@ const AboutUsPage = () => {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">What Our Customers Say</h2>
             <p className="text-gray-600 text-lg">
-              Real experiences from our valued customers across all locations
+              Real experiences from our valued customers across all locations in virar
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

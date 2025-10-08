@@ -45,10 +45,10 @@ const Topbar = () => {
         {/* Contact */}
         <div className="hidden md:block text-sm">
           <a
-            href="tel:+919999999999"
+            href="tel:+91 86525 78332"
             className="hover:text-amber-600 font-medium transition-colors duration-200"
           >
-            +91 9999 99 9999
+            +91 86525 78332
           </a>
         </div>
       </div>

@@ -66,7 +66,7 @@ const CakeCollectionSection = () => {
           >
             <h2 className='text-2xl font-bold text-gray-900 mb-2'>Ladoos & Mithai Collection</h2>
             <Link
-              to="/collections/all?sweetType=ladoo+mithai"
+              to="/collections/all?sweetType=ladoo&sweetType=mithai"
               className='text-sm text-gray-900 underline hover:text-black transition-colors'
             >
               Shop Now
