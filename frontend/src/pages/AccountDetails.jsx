@@ -175,7 +175,7 @@ const AccountDetails = () => {
       <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in-up">
         {/* Name */}
         <div className="transition-transform duration-300 hover:scale-[1.01]">
-          <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+          <label className="flex text-sm font-medium text-gray-700 mb-2 items-center gap-1">
             <HiOutlineUser className="text-amber-500" /> Full Name
           </label>
           <input
@@ -190,7 +190,7 @@ const AccountDetails = () => {
 
         {/* Email */}
         <div className="transition-transform duration-300 hover:scale-[1.01]">
-          <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+          <label className="flex text-sm font-medium text-gray-700 mb-2 items-center gap-1">
             <HiOutlineMail className="text-amber-500" /> Email Address
           </label>
           <input
@@ -205,7 +205,7 @@ const AccountDetails = () => {
 
         {/* Phone */}
         <div className="transition-transform duration-300 hover:scale-[1.01]">
-          <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+          <label className="flex text-sm font-medium text-gray-700 mb-2 items-center gap-1">
             <HiOutlinePhone className="text-amber-500" /> Phone Number
           </label>
           <input
