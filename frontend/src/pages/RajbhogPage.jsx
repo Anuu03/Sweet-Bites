@@ -4,6 +4,7 @@ import FilterSidebar from '../components/Products/FilterSidebar';
 import SortOptions from '../components/Products/SortOptions';
 import ProductGrid from '../components/Products/ProductGrid';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const RajbhogPage = () => {
   const [products, setProducts] = useState([]);
@@ -38,18 +39,17 @@ const RajbhogPage = () => {
     try {
       setLoading(true);
       setError('');
-      
-      // Get backend URL from environment or use default
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:9000';
-      console.log('Fetching from:', `${backendUrl}/api/products?category=Rajbhog`);
-      
+
+
+      console.log('Fetching from:', `${API_BASE_URL}/api/products?category=Rajbhog`);
+
       const response = await axios.get(
-        `${backendUrl}/api/products?category=Rajbhog`
+        `${API_BASE_URL}/api/products?category=Rajbhog`
       );
-      
+
       console.log('API Response:', response.data);
       console.log('Total products received:', response.data?.length || 0);
-      
+
       if (response.data && response.data.length > 0) {
         setProducts(response.data);
       } else {
@@ -60,7 +60,7 @@ const RajbhogPage = () => {
       console.error('Failed to fetch Rajbhog products:', error);
       console.error('Error details:', error.response?.data || error.message);
       setError(`Failed to load products: ${error.response?.data?.message || error.message}`);
-      
+
       // Fallback to mock data if API fails
       console.log('Trying fallback method...');
       loadMockRajbhogProducts();
@@ -72,18 +72,17 @@ const RajbhogPage = () => {
   const loadMockRajbhogProducts = async () => {
     try {
       // Try to fetch all products and filter Rajbhog category as fallback
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:9000';
-      console.log('Fallback: Fetching all products from:', `${backendUrl}/api/products`);
-      
-      const response = await axios.get(`${backendUrl}/api/products`);
+      console.log('Fallback: Fetching all products from:', `${API_BASE_URL}/api/products`);
+
+      const response = await axios.get(`${API_BASE_URL}/api/products`);
       console.log('Fallback: Total products received:', response.data?.length || 0);
-      
+
       if (response.data && Array.isArray(response.data)) {
-        const rajbhogProducts = response.data.filter(product => 
+        const rajbhogProducts = response.data.filter(product =>
           product.category === 'Rajbhog'
         );
         console.log('Fallback: Filtered Rajbhog products:', rajbhogProducts.length);
-        
+
         if (rajbhogProducts.length > 0) {
           setProducts(rajbhogProducts);
           setError('');
@@ -101,7 +100,7 @@ const RajbhogPage = () => {
       loadStaticProducts();
     }
   };
-  
+
   const loadStaticProducts = () => {
     // Static products as last resort
     const staticProducts = [
@@ -172,7 +171,7 @@ const RajbhogPage = () => {
         countInStock: 55
       }
     ];
-    
+
     console.log('Loading static products:', staticProducts.length);
     setProducts(staticProducts);
     setError('Using offline product data. Please check your internet connection.');
@@ -223,7 +222,7 @@ const RajbhogPage = () => {
                 <p className="text-red-700">{error}</p>
               </div>
             )}
-            
+
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
               <div className="text-sm text-gray-600">
                 {products?.length > 0 && (
@@ -232,7 +231,7 @@ const RajbhogPage = () => {
               </div>
               <SortOptions />
             </div>
-            
+
             <div className="bg-white lg:bg-transparent lg:rounded-lg lg:shadow-sm lg:p-6">
               {products.length === 0 && !loading ? (
                 <div className="text-center py-16">

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import API_BASE_URL from '../config/api';
 
 // Custom Toast component to replace 'sonner'
 const Toast = ({ message, type }) => {
@@ -148,7 +149,7 @@ const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Client-side validation for phone number
     const indianPhoneRegex = /^[6-9]\d{9}$/;
     if (!indianPhoneRegex.test(formData.phone)) {
@@ -162,14 +163,14 @@ const App = () => {
 
     try {
       // 🎯 REAL API CALL TO THE BACKEND
-      const response = await fetch('http://localhost:9000/api/contact/submit', {
+      const response = await fetch(`${API_BASE_URL}/api/contact/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
-      
+
       const data = await response.json();
 
       if (response.ok) {
@@ -261,16 +262,16 @@ const App = () => {
       `}</style>
 
       <Toast message={toastMessage} type={toastType} />
-      
+
       {/* Header Section */}
-      <div 
+      <div
         ref={el => sectionRefs.current[0] = el}
         className="fade-in-section bg-gradient-to-r from-amber-600 to-orange-600 text-white py-16 px-4 md:px-8 shadow-xl"
       >
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 animate-pulse-slow">Get in Touch</h1>
           <p className="text-xl text-amber-100 max-w-2xl mx-auto mb-8 font-light">
-            We'd love to hear from you! Whether you have questions, feedback, or need assistance, 
+            We'd love to hear from you! Whether you have questions, feedback, or need assistance,
             our team is here to help.
           </p>
           <div className="mt-8 flex flex-col md:flex-row justify-center gap-6 text-amber-100">
@@ -300,7 +301,7 @@ const App = () => {
       <div className="container mx-auto px-4 py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div 
+          <div
             ref={el => sectionRefs.current[1] = el}
             className="fade-in-section bg-white rounded-xl shadow-lg p-8 transform transition-transform duration-500 ease-out hover:-translate-y-1"
           >
@@ -415,7 +416,7 @@ const App = () => {
           </div>
 
           {/* Contact Information */}
-          <div 
+          <div
             ref={el => sectionRefs.current[2] = el}
             className="fade-in-section space-y-8"
           >
@@ -489,14 +490,14 @@ const App = () => {
         </div>
 
         {/* Locations Section */}
-        <div 
+        <div
           ref={el => sectionRefs.current[3] = el}
           className="fade-in-section mt-16 md:mt-24"
         >
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Locations</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Visit us at any of our convenient locations across Mumbai and Pune. 
+              Visit us at any of our convenient locations across Mumbai and Pune.
               Each store offers the same quality products and excellent service.
             </p>
           </div>

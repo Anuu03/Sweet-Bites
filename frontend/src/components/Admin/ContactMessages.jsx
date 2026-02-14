@@ -11,6 +11,7 @@ import {
   FaSort,
 } from "react-icons/fa";
 import axios from "axios";
+import API_BASE_URL from "../../config/api";
 
 const ContactMessages = () => {
   const [contacts, setContacts] = useState([]);
@@ -53,7 +54,7 @@ const ContactMessages = () => {
     setError(null);
     try {
       const response = await axios.get(
-        "http://localhost:9000/api/contact/admin/contacts"
+        `${API_BASE_URL}/api/contact/admin/contacts`
       );
       setContacts(response.data.data.contacts);
     } catch (err) {
@@ -66,7 +67,7 @@ const ContactMessages = () => {
   const handleUpdateStatus = async (contactId, newStatus) => {
     try {
       await axios.patch(
-        `http://localhost:9000/api/contact/admin/contacts/${contactId}/status`,
+        `${API_BASE_URL}/api/contact/admin/contacts/${contactId}/status`,
         { status: newStatus }
       );
 
@@ -88,7 +89,7 @@ const ContactMessages = () => {
     if (!window.confirm("Are you sure you want to delete this message?")) return;
     try {
       await axios.delete(
-        `http://localhost:9000/api/contact/admin/contacts/${contactId}`
+        `${API_BASE_URL}/api/contact/admin/contacts/${contactId}`
       );
       setContacts((prev) => prev.filter((c) => c._id !== contactId));
       setToastMessage("Message deleted successfully.");
@@ -194,9 +195,8 @@ const ContactMessages = () => {
       {/* Toast */}
       {toastMessage && (
         <div
-          className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg text-white font-medium ${
-            toastType === "success" ? "bg-green-500" : "bg-red-500"
-          } transition-all`}
+          className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg text-white font-medium ${toastType === "success" ? "bg-green-500" : "bg-red-500"
+            } transition-all`}
         >
           {toastMessage}
         </div>
@@ -293,13 +293,12 @@ const ContactMessages = () => {
                 </td>
                 <td className="px-6 py-4">
                   <span
-                    className={`inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      contact.status === "pending"
+                    className={`inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-medium ${contact.status === "pending"
                         ? "bg-yellow-100 text-yellow-800"
                         : contact.status === "in-progress"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-green-100 text-green-800"
-                    }`}
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
                   >
                     {getStatusIcon(contact.status)}
                     {getStatusText(contact.status)}

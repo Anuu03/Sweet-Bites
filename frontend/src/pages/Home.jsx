@@ -29,8 +29,7 @@ const Home = () => {
         // Fetch best seller products
         const fetchBestSellers = async () => {
             try {
-                const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:9000';
-                const response = await axios.get(`${backendUrl}/api/products/best-seller`);
+                const response = await axios.get(`${API_BASE_URL}/api/products/best-seller`);
                 setBestSellerProducts(response.data);
             } catch (error) {
                 console.error("Error fetching best seller products:", error);
