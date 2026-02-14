@@ -24,21 +24,21 @@ app.use(express.json());
 
 // ✅ CORS setup
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://sweet-bites-lsfx.vercel.app",
+    "http://localhost:5173",
+    "https://sweet-bites-ashy.vercel.app",
 ];
 
 app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin) || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
+    cors({
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin) || !origin) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        credentials: true,
+    })
 );
 
 // ✅ Serve static images
@@ -50,7 +50,7 @@ connectDB();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.send("WELCOME TO CREAMYCAKE&CO API!");
+    res.send("WELCOME TO CREAMYCAKE&CO API!");
 });
 
 // API Routes
@@ -70,5 +70,5 @@ app.use("/api/admin/products", productAdminRoutes);
 app.use("/api/admin/orders", adminOrderRoutes);
 
 app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
+    console.log(`✅ Server running at http://localhost:${PORT}`);
 });
