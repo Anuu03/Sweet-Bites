@@ -22,27 +22,10 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// ✅ CORS setup
+// ✅ CORS setup - Allowing all origins for now
 app.use(
     cors({
-        origin: function (origin, callback) {
-            // Allow requests with no origin (mobile apps, Postman, etc.)
-            if (!origin) return callback(null, true);
-
-            const allowedOrigins = [
-                "http://localhost:5173",
-                "http://localhost:3000",
-            ];
-
-            // Allow all Vercel deployments
-            const isVercelDomain = origin.endsWith('.vercel.app');
-
-            if (allowedOrigins.includes(origin) || isVercelDomain) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
+        origin: true, // Allow all origins temporarily
         credentials: true,
     })
 );
