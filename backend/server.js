@@ -22,13 +22,33 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// ✅ CORS setup - Allowing all origins for now
-app.use(
-    cors({
-        origin: true, // Allow all origins temporarily
-        credentials: true,
-    })
-);
+// ✅ CORS Configuration - Production-grade with dynamic origin validation
+const allowedOrigins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://sweet-bites-ashy.vercel.app",
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (Postman, mobile apps, curl)
+        if (!origin) return callback(null, true);
+
+        // Check if origin is in allowed list or is a Vercel deployment
+        const isAllowed =
+            allowedOrigins.includes(origin) ||
+            origin.endsWith(".vercel.app");
+
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 // ✅ Serve static images
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
