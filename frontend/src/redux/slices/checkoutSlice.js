@@ -1,12 +1,13 @@
 // Filename: checkoutSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import API_BASE_URL from "../../config/api";
 
 // ✅ Helper: Get token safely
 const getToken = () => localStorage.getItem("userToken");
 
-// ✅ Helper: API base URL from environment
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+// ✅ Helper: API base URL from centralized config
+const API_URL = API_BASE_URL;
 
 // ==================== ASYNC THUNKS ==================== //
 

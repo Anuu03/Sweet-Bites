@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import API_BASE_URL from "../../config/api";
 
 // Helper: Load cart from localStorage
 const loadCartFromStorage = () => {
@@ -18,7 +19,7 @@ export const fetchCart = createAsyncThunk(
   async ({ userId, guestId }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        `${API_BASE_URL}/api/cart`,
         { params: { userId, guestId } }
       );
       return response.data;
@@ -34,13 +35,13 @@ export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ productId, quantity, weights, guestId, userId }, { rejectWithValue }) => {
     try {
-      const response = await axios.post (`${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+      const response = await axios.post(`${API_BASE_URL}/api/cart`,
         {
-          productId, 
-          quantity, 
-          weights, 
-          guestId, 
-          userId, 
+          productId,
+          quantity,
+          weights,
+          guestId,
+          userId,
         }
       );
       return response.data;
@@ -56,7 +57,7 @@ export const updateCartItemQuantity = createAsyncThunk(
   async ({ productId, quantity, weights, guestId, userId }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        `${API_BASE_URL}/api/cart`,
         { productId, quantity, weights, guestId, userId }
       );
       return response.data;
@@ -73,7 +74,7 @@ export const removeFromCart = createAsyncThunk(
     try {
       const response = await axios({
         method: "DELETE",
-        url: `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+        url: `${API_BASE_URL}/api/cart`,
         data: { productId, weights, guestId, userId }
       });
       return response.data;
@@ -89,12 +90,12 @@ export const mergeCart = createAsyncThunk(
   async ({ guestId, userId }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/cart/merge`,
+        `${API_BASE_URL}/api/cart/merge`,
         { guestId, userId },
         {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-            },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          },
         }
       );
       return response.data;
@@ -185,12 +186,12 @@ const cartSlice = createSlice({
         state.error = null;
       })
       .addCase(mergeCart.fulfilled, (state, action) => {
-    state.loading = false;
-    // Check if the payload has a 'cart' key and use it, otherwise use the payload directly
-    const mergedCart = action.payload.cart || action.payload;
-    state.cart = mergedCart;
-    saveCartToStorage(mergedCart);
-})
+        state.loading = false;
+        // Check if the payload has a 'cart' key and use it, otherwise use the payload directly
+        const mergedCart = action.payload.cart || action.payload;
+        state.cart = mergedCart;
+        saveCartToStorage(mergedCart);
+      })
       .addCase(mergeCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Failed to merge cart";

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import API_BASE_URL from "../../config/api";
 
 // ✅ FIX: Retrieve user info and token from localStorage if available
 const userFromStorage = localStorage.getItem("userInfo")
@@ -31,7 +32,7 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
+        `${API_BASE_URL}/api/users/login`,
         userData
       );
 
@@ -51,7 +52,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
+        `${API_BASE_URL}/api/users/register`,
         userData
       );
 
@@ -77,7 +78,7 @@ export const fetchMyOrders = createAsyncThunk(
         },
       };
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/orders/my-orders`,
+        `${API_BASE_URL}/api/orders/my-orders`,
         config
       );
       return data;
@@ -93,7 +94,7 @@ export const forgotPasswordUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/forgot-password`,
+        `${API_BASE_URL}/api/users/forgot-password`,
         userData
       );
       return response.data;
@@ -109,7 +110,7 @@ export const resetPasswordUser = createAsyncThunk(
   async (resetData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/reset-password`,
+        `${API_BASE_URL}/api/users/reset-password`,
         resetData
       );
       return response.data;
