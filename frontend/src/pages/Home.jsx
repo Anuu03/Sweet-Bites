@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 // Import the necessary components and Redux action
 import Hero from "../components/Layout/Hero";
