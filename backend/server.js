@@ -23,15 +23,21 @@ const app = express();
 app.use(express.json());
 
 // ✅ CORS setup
-const allowedOrigins = [
-    "http://localhost:5173",
-    "https://sweet-bites-ashy.vercel.app",
-];
-
 app.use(
     cors({
         origin: function (origin, callback) {
-            if (!origin || allowedOrigins.includes(origin) || !origin) {
+            // Allow requests with no origin (mobile apps, Postman, etc.)
+            if (!origin) return callback(null, true);
+
+            const allowedOrigins = [
+                "http://localhost:5173",
+                "http://localhost:3000",
+            ];
+
+            // Allow all Vercel deployments
+            const isVercelDomain = origin.endsWith('.vercel.app');
+
+            if (allowedOrigins.includes(origin) || isVercelDomain) {
                 callback(null, true);
             } else {
                 callback(new Error("Not allowed by CORS"));
