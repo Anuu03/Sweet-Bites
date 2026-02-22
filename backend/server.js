@@ -1,6 +1,8 @@
+const dotenv = require("dotenv");
+dotenv.config(); // ✅ Must be FIRST — loads env vars before any other module reads process.env
+
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const path = require("path");
 
 const connectDB = require("./config/db");
@@ -16,8 +18,6 @@ const contactRoutes = require("./routes/contactRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const productAdminRoutes = require("./routes/productAdminRoutes");
 const adminOrderRoutes = require("./routes/adminOrderRoutes");
-
-dotenv.config();
 
 const app = express();
 app.use(express.json());
